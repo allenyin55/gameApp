@@ -1,0 +1,59 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Web Application</title>
+  <link rel="stylesheet" href="css/foundation.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+
+<!-- DESKTOP NAVIGATION -->
+
+<div class="top-bar">
+  <div class="top-bar-left">
+    <h5 class="top-bar-name">Game Web Application</h5>
+  </div>
+  <div class="top-bar-right">
+    <ul class="menu">
+      <li><input type="search" placeholder="Search"></li>
+      <li><button type="button" class="button">Search</button></li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- HERO SECTION -->
+
+
+<div>
+  <ul>
+    <li id="chatBox">Chat Box</li>
+  </ul>
+  <ul id="messages"></ul>
+  <form action="">
+    <input id="m" autocomplete="off" /><button>Send</button>
+  </form>
+</div>
+
+<script src="js/vendor/jquery.js"></script>
+<script src="js/vendor/what-input.js"></script>
+<script src="js/vendor/foundation.js"></script>
+<script src="js/app.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+  $('form').submit(function(){
+    socket.emit('chat message', $('#m').val());
+    $('#m').val('');
+    return false;
+  });
+  socket.on('chat message', function(msg){
+    $('#messages').append($('<li>').text(msg));
+  });
+</script>
+</body>
+</html>
