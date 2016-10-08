@@ -3,6 +3,12 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
 var express = require('express');
+var passport = require('passport');
+var flash = require('connect-flash');
+var mongoose = require('mongoose');
+
+var configDB = require('./config/database');
+mongoose.connect(configDB.url);
 
 app.set('view engine', 'ejs');
 
